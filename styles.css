@@ -1,0 +1,98 @@
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+.page {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+   flex-wrap: wrap;
+}
+
+.header {
+   width: 100%;
+}
+
+.page-logo {
+   width: 100%;
+   background-color: #f3962c;
+}
+
+.scroll-menu {
+   background-color: #a7f32c;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+}
+
+.scroll-menu li {
+   list-style: none;
+}
+
+.form-row {
+   margin-bottom: 40px;
+}
+
+.form-row input[type='text'] {
+   background-color: #FFFFFF;
+   border: 1px solid #D6D9DC;
+   border-radius: 3px;
+   width: 75%;
+   padding: 7px;
+   font-size: 14px;
+}
+
+.form-row label {
+   text-align: center;
+   width: 120px;
+   margin-top: 7px;
+   padding-right: 20px;
+}
+
+.form-row select {
+   width: 75%;
+   padding: 5px;
+   font-size: 14px;
+}
+
+.sidebar {
+   width: 100%;
+   background-color: #bfdf0b;
+
+}
+
+.side-menu {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   text-align: center;
+}
+
+.side-menu li {
+   list-style: none;
+}
+
+.footer {
+   width: 100%;
+   background-color: #808080;
+   text-align: center;
+}
+
+/* Mobile Styles */
+@media only screen and (max-width: 400px) {
+
+}
+
+/* Tablet Styles */
+@media only screen and (min-width: 401px) and (max-width: 960) {
+
+}
+
+/* Desktop Styles */
+@media only screen and (min-width: 961px) {
+
+}

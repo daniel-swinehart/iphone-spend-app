@@ -1,48 +1,149 @@
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="iphone.css" media="only screen and (max-width: 480px)" />
-    <link rel="stylesheet" type="text/css" href="desktop.css" media="screen and (min-width: 481px)" />
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="iphone.js"></script>
-    <meta name="viewport" content="user-scalable=no, width=device-width" />
-    <title>Daniel Gregory</title>
-</head>
-<body>
-    <div id="container">
-        <div id="header">
-            <h1><a href="./">Daniel Gregory</a></h1>
-            <div id="utility">
-                <ul>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
+<!DOCTYPE html>
+<html lang='en'>
+   <head>
+      <meta charset='UTF-8'/>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
+      <title>Daniel Gregory</title>
+      <link rel='stylesheet' href='styles.css'/>
+   </head>
+
+   <body>
+      <div class='page'>
+         <header class='header'>
+            <div class='page-logo'><img src='#'/></div>
+            <nav class='menu'>
+               <ul class='scroll-menu'>
+                  <li><a href='#'>Avionic Systems</a></li>
+                  <li><a href='#'>Computer Electronics</a></li>
+                  <li><a href='#'>Web Development</a></li>
+               </ul>
+            </nav>
+         </header>
+
+         <h2>Expense Tracker</h2>
+
+         <form action='' method='post' class='spend-form'>
+            <div class='form-row'>
+               <label for='expense-type'>Expense Type</label>
+               <select id='expense-type' name='expense-type'>
+                  <option value='grocery'>Grocery</option>
+                  <option value='education'>Education</option>
+                  <option value='transportation'>Transportation</option>
+                  <potion value='utilities'>Utilities</option>
+                  <option value='apart-rent'>Rent</option>
+                  <option value='clothing'>Clothing</option>
+                  <option value='recreation'>Recreation</option>
+                  <option value='vacation'>Vacation</option>
+                  <option value='savings'>Savings</option>
+                  <option value='medical'>Medical</option>
+                  <option value='house-help'>House Help</option>
+                  <option value='hospitality'>Hospitality</option>
+               </select>
             </div>
-            <div id="nav">
-                <ul>
-                    <li><a href="consulting-clinic.html">Consulting Clinic</a></li>
-                    <li><a href="on-call.html">On Call</a></li>
-                    <li><a href="development.html">Development</a></li>
-                </ul>
+            <div class='form-row'>
+               <label for='expense-amount'>Amount</label>
+               <input id='expense-amount' name='expense-amount' type='text'/>
             </div>
-        </div>
-        <div id="content">
-            <h2>About</h2>
-            <p>Daniel Gregory is a web developer and computer electronics technician.
-                He has worked extensively with blah blah blah blah....
-            </p>
-        </div>
-        <div id="sidebar">
-            <img alt="Portrait of Daniel Gregory" src="images/portraitDaniel.png">
-            <p>Some more fun facts about Daniel Gregory...blah blah blah...</p>
-        </div>
-        <div id="footer">
-            <ul>
-                <li><a href="services.html">Services</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="blog.html">Blog</a></li>
-            </ul>
-            <p class="subtle">Daniel Gregory Industries</p>
-        </div>
-    </div>    
-</body>
+            <div class='form-row'>
+               <button>Submit</button>
+            </div>   
+         </form>
+
+         <h2>Expense Report</h2>
+
+         <form action='' method='get' class='report-form'>
+            <div class='form-row'>
+               <label for='remain-rent'>Rent</label>
+               <input id='remain-rent' name='remain-rent' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-utilities'>Utilities</label>
+               <input id='remain-utilities' name='remain-utilities' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-transportation'>Transportation</label>
+               <input id='remain-transportation' name='remain-transportation' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-grocery'>Grocery</label>
+               <input id='remain-grocery' name='remain-grocery' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-education'>Education</label>
+               <input id='remain-education' name='remain-education' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-clothing'>Clothing</label>
+               <input id='remain-clothing' name='remain-clothing' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-recreation'>Recreation</label>
+               <input id='remain-recreation' name='remain-recreation' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-vacation'>Vacation</label>
+               <input id='remain-vacation' name='remain-vacation' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-savings'>Savings</label>
+               <input id='remain-savings' name='remain-savings' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-medical'>Medical</label>
+               <input id='remain-medical' name='remain-medical' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-house-help'>House Help</label>
+               <input id='remain-house-help' name='remain-house-help' type='text'/>
+            </div>
+            <div class='form-row'>
+               <label for='remain-hospitatlity'>Hospitality</label>
+               <input id='remain-hospitatlity' name='remain-hospitatlity' type='text'/>
+            </div>
+         </form>
+
+         <section class='skill-detail'>
+            <article class='avionics'>
+               <header>
+                  <div class='skill-logo'><img src='#'/></div>
+                  <div class='skill-description'>
+                     <p>This is where I will type out a breif but detailed explanation of my abilities and experience for this specific skill set.</p>
+                  </div>
+               </header>
+            </article>
+            
+            <article class='computer-electronics'>
+               <header>
+                  <div class='skill-logo'><img src='#'/></div>
+                  <div class='skill-description'>
+                     <p>This is where I will type out a breif but detailed explanation of my abilities and experience for this specific skill set.</p>
+                  </div>
+               </header>
+            </article>
+
+            <article class='web-development'>
+               <header>
+                  <div class='skill-logo'><img src='#'/></div>
+                  <div class='skill-description'>
+                     <p>This is where I will type out a breif but detailed explanation of my abilities and experience for this specific skill set.</p>
+                  </div>
+               </header>
+            </article>
+
+         </section>
+
+         <aside class='sidebar'>
+            <nav class='menu'>
+               <ul class='side-menu'>
+                  <li><a href='#'>Vision</a></li>
+                  <li><a href='#'>Contact</a></li>
+               </ul>
+            </nav>
+         </aside>
+
+         <footer class='footer'>
+            <p>&copy; 2020 danielmaroc.com</p>
+         </footer>
+      </div>
+   </body>
 </html>
