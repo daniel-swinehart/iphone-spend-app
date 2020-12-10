@@ -1,3 +1,5 @@
 # iphone-spend-app
 
-Test add new line
+This folder is sync'd with git.
+
+This app is awesome
