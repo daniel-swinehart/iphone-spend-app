@@ -32,5 +32,5 @@ mysqli_query($mysqli, $update_category_amount_sql) or die(mysqli_error($mysqli))
 mysqli_close($mysqli);
 
 header("Location: http://www.danielmaroc.com/displayFunds.php");
-
+exit;
 ?>
