@@ -4,7 +4,7 @@ connectDB();
 
 //Check for the required fields from 'spend-form' on displayFunds.php
 if ((!$_POST['expense-type']) || (!$_POST['expense-amount'])) {
-   header("Location: displayFunds.php");
+   header("Location: http://www.danielmaroc.com/displayFunds.php");
    exit;
 }
 
@@ -31,6 +31,6 @@ mysqli_query($mysqli, $update_category_amount_sql) or die(mysqli_error($mysqli))
 //Close connection to MySQL
 mysqli_close($mysqli);
 
-header("Location: displayFunds.php");
+header("Location: http://www.danielmaroc.com/displayFunds.php");
 
 ?>
