@@ -1,5 +1,6 @@
 # iphone-spend-app
 
-This folder is sync'd with git.
+This folder is sync'd with github
 
-This app is awesome
+This is the development branch test
+
