@@ -6,10 +6,12 @@
 
 .page {
    display: flex;
-   flex-direction: column;
-   justify-content: center;
-   text-align: center;
    flex-wrap: wrap;
+   flex-direction: column; 
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   width: 100%;
 }
 
 .header {
@@ -21,59 +23,82 @@
    background-color: #f3962c;
 }
 
-.scroll-menu {
-   background-color: #a7f32c;
+.spend-form {
    display: flex;
+   flex-wrap: wrap;
    flex-direction: column;
    justify-content: center;
-   text-align: center;
-}
-
-.scroll-menu li {
-   list-style: none;
+   width: 100%;
+   border: solid 1px #f3962c;
+   margin: 5px;
 }
 
 .form-row {
-   margin-bottom: 40px;
+   display: flex;
+   width: 100%;
+   justify-content: center;
+   border: solid 1px #df2222;
+   margin-top: 5px;
 }
 
-.form-row input[type='text'] {
+.form-row input[type='number'] {
    background-color: #FFFFFF;
-   border: 1px solid #D6D9DC;
+   border: 1px solid #37393b;
    border-radius: 3px;
-   width: 75%;
-   padding: 7px;
-   font-size: 14px;
+   width: 100%;
+   padding: 5px;
+   font-size: 12px;
 }
 
 .form-row label {
-   text-align: center;
-   width: 120px;
-   margin-top: 7px;
-   padding-right: 20px;
+   display: block;
+   width: 75%;
+   text-align: left;
+   margin-top: 5px;
+   border: solid 1px #6422df;
 }
 
 .form-row select {
-   width: 75%;
-   padding: 5px;
-   font-size: 14px;
-}
-
-.sidebar {
    width: 100%;
-   background-color: #bfdf0b;
-
+   background-color: #FFFFFF;
+   border: 1px solid #37393b;
+   border-radius: 3px;
+   padding: 5px;
+   font-size: 12px;
 }
 
-.side-menu {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   text-align: center;
+.fund-levels {
+   width: 75%;
+   border-collapse: separate;
+   border-spacing: 2px;
+   border-radius: 15px;
+   border: solid 2px #050505;
+   margin-bottom: 10px;
 }
 
-.side-menu li {
-   list-style: none;
+.fund-levels th {
+   width: 100%;
+   padding: 5px;
+}
+
+.table-column-category {
+   border-bottom: solid 1px #050505;
+   border-right: solid 1px #050505;
+   text-align: left;
+}
+
+.table-column-amount {
+   border-bottom: solid 1px #050505;
+}
+
+.table-column-category-last {
+   border-bottom: none;
+   border-right: solid 1px #050505;
+   text-align: left;
+}
+
+.table-column-amount-last {
+   border-bottom: none;
 }
 
 .footer {
