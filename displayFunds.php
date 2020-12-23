@@ -1,103 +1,104 @@
 <?php
-   include 'includeDB.php';
-   connectDB();
+    session_start();
+    if(!isset($_SESSION['user_id'])){
+        header('Location: login.php');
+        exit;
+    } else {
+      include 'includeDB.php';
 
-   //Collect expense categories and current remaining fund levels
-   $get_catFunds_sql = "SELECT * FROM categories ORDER BY id DESC LIMIT 1";
+      //Collect expense categories and current remaining fund levels
+      $query = $connection->prepare("SELECT * FROM categories ORDER BY id DESC LIMIT 1");
+      $query->execute(); 
 
-   $get_catFunds_results = mysqli_query($mysqli, $get_catFunds_sql) or die      (mysqli_error($mysqli));
+      //Arrange fund level data into table for display
+      $category_info = $query->fetch(PDO::FETCH_ASSOC);
+      $cat_id = $category_info['id'];
+      $cat_grocery = $category_info['grocery'];
+      $cat_education = $category_info['education'];
+      $cat_transportation = $category_info['transportation'];
+      $cat_utilities = $category_info['utilities'];
+      $cat_apartment = $category_info['apartment_rent'];
+      $cat_clothing = $category_info['clothing'];
+      $cat_recreation = $category_info['recreation'];
+      $cat_vacation = $category_info['vacation'];
+      $cat_savings = $category_info['savings'];
+      $cat_medical = $category_info['medical'];
+      $cat_house_help = $category_info['house_help'];
+      $cat_hospitality = $category_info['hospitality'];
+      $cat_charitable = $category_info['charitable'];
+      $cat_tithe = $category_info['tithe'];
 
-   //Arrange fund level data into table for display
-   $category_info = mysqli_fetch_array($get_catFunds_results);
-   $cat_id = $category_info['id'];
-   $cat_grocery = $category_info['grocery'];
-   $cat_education = $category_info['education'];
-   $cat_transportation = $category_info['transportation'];
-   $cat_utilities = $category_info['utilities'];
-   $cat_apartment = $category_info['apartment_rent'];
-   $cat_clothing = $category_info['clothing'];
-   $cat_recreation = $category_info['recreation'];
-   $cat_vacation = $category_info['vacation'];
-   $cat_savings = $category_info['savings'];
-   $cat_medical = $category_info['medical'];
-   $cat_house_help = $category_info['house_help'];
-   $cat_hospitality = $category_info['hospitality'];
-   $cat_charitable = $category_info['charitable'];
-   $cat_tithe = $category_info['tithe'];
+      //Add to table display
+      $display_block = <<<END_OF_TEXT
+      <table class='fund-levels'>
+         <thead>
+            <th colspan='2'>Current Fund Levels (MAD)</th>
+         </thead>
+         <tbody>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Groceries</td>
+               <td class='table-column-amount'>$cat_grocery</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Charitable</td>
+               <td class='table-column-amount'>$cat_charitable</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Transportation</td>
+               <td class='table-column-amount'>$cat_transportation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Education</td>
+               <td class='table-column-amount'>$cat_education</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Hospitality</td>
+               <td class='table-column-amount'>$cat_hospitality</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Clothing</td>
+               <td class='table-column-amount'>$cat_clothing</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Medical</td>
+               <td class='table-column-amount'>$cat_medical</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Recreation</td>
+               <td class='table-column-amount'>$cat_recreation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>House Help</td>
+               <td class='table-column-amount'>$cat_house_help</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Savings</td>
+               <td class='table-column-amount'>$cat_savings</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Vacation</td>
+               <td class='table-column-amount'>$cat_vacation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Utilities</td>
+               <td class='table-column-amount'>$cat_utilities</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Apartment Rent</td>
+               <td class='table-column-amount'>$cat_apartment</td>
+            </tr>
+            <tr class='table-rows-last'>
+               <td class='table-column-category-last'>Tithe</td>
+               <td class='table-column-amount-last'>$cat_tithe</td>
+            </tr>
+         </tbody>
+      </table>
 
-   //Add to table display
-   $display_block = <<<END_OF_TEXT
-   <table class='fund-levels'>
-      <thead>
-         <th>Current Fund Levels (MAD)</th>
-      </thead>
-      <tbody>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Groceries</td>
-            <td class='table-column-amount'>$cat_grocery</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Charitable</td>
-            <td class='table-column-amount'>$cat_charitable</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Transportation</td>
-            <td class='table-column-amount'>$cat_transportation</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Education</td>
-            <td class='table-column-amount'>$cat_education</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Hospitality</td>
-            <td class='table-column-amount'>$cat_hospitality</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Clothing</td>
-            <td class='table-column-amount'>$cat_clothing</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Medical</td>
-            <td class='table-column-amount'>$cat_medical</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Recreation</td>
-            <td class='table-column-amount'>$cat_recreation</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>House Help</td>
-            <td class='table-column-amount'>$cat_house_help</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Savings</td>
-            <td class='table-column-amount'>$cat_savings</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Vacation</td>
-            <td class='table-column-amount'>$cat_vacation</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Utilities</td>
-            <td class='table-column-amount'>$cat_utilities</td>
-         </tr>
-         <tr class='table-rows'>
-            <td class='table-column-category'>Apartment Rent</td>
-            <td class='table-column-amount'>$cat_apartment</td>
-         </tr>
-         <tr class='table-rows-last'>
-            <td class='table-column-category-last'>Tithe</td>
-            <td class='table-column-amount-last'>$cat_tithe</td>
-         </tr>
-      </tbody>
-   </table>
+      END_OF_TEXT;
 
-   END_OF_TEXT;
-
-   //Free results from sql query
-   mysqli_free_result($get_catFunds_results);
-
-   //Close connection to MySQL
-   mysqli_close($mysqli);
+      //Close connection to MySQL
+      $connection = NULL;
+    } 
 ?>
 
 <!DOCTYPE html>
@@ -107,6 +108,8 @@
       <meta charset='UTF-8'/>
       <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0'/>
       <title>Expense Tracker</title>
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,900;1,900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
       <link rel='stylesheet' href='styles.css'/>
       <link rel='apple-touch-icon' type='image/png' href='http://www.danielmaroc.com/images/apple-touch-icon.png'/>
    </head>
@@ -117,7 +120,7 @@
             <div class='page-logo'><img src='#'/></div>
          </header>
 
-         <h1>Expense Tracker</h1>
+         <h1>Monthly Fund Tracker</h1>
 
          <form action='updateFunds.php' method='post' class='spend-form'>
             <div class='form-row'>

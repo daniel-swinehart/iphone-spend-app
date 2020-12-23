@@ -1,41 +1,46 @@
 <?php
-ob_start();
-include 'includeDB.php';
-connectDB();
+   session_start();
+   if(!isset($_SESSION['user_id'])){
+      header('Location: login.php');
+      exit;
+   } else {
+      ob_start();
+      include 'includeDB.php';
+      //Check for the required fields from 'spend-form' on displayFunds.php
+      if ((!$_POST['expense-type']) || (!$_POST['expense-amount'])) {
+         header("Location: displayFunds.php");
+         exit;
+      } else {
+         //Assign variable values for input into the database
+         $expense_type = $_POST['expense-type'];
+         $expense_amount = $_POST['expense-amount'];
+         //Assign current record id to variable and assign current date/time
+         $current_record = $_POST['update-button'];
+         $date = date('Y-m-d H:i:s'); 
+         //Create and issue query to find category value to update
+         $current_amount_query = $connection->prepare("SELECT $expense_type FROM categories WHERE id= :record"); 
+         $current_amount_query->bindParam(":record", $current_record, PDO::PARAM_INT);
+         $current_amount_query->execute();
+         $result_row = $current_amount_query->fetchAll(PDO::FETCH_ASSOC);
+         $current_amount = ($result_row[0][$expense_type]);
+         //Convert expense amount and current amount to int for calculations
+         $int_expense_amount = (int)$expense_amount;
+         $int_current_amount = (int)$current_amount;
+         //Subtract new expense amount from current expense
+         $int_current_amount -= $int_expense_amount;
+         //Update new category value into database
+         $update_amount = $connection->prepare("UPDATE categories SET $expense_type = :amount, time_stamp= :addDate WHERE id= :record");
+         $update_amount->bindParam(":amount", $int_current_amount, PDO::PARAM_INT);
+         $update_amount->bindParam(":addDate", $date, PDO::PARAM_STR);
+         $update_amount->bindParam(":record", $current_record, PDO::PARAM_INT);
+         $update_amount->execute();
 
-//Check for the required fields from 'spend-form' on displayFunds.php
-if ((!$_POST['expense-type']) || (!$_POST['expense-amount'])) {
-   header("Location: displayFunds.php");
-   exit;
-}
+         //Close connection to database
+         $current_amount_query = NULL;
+         $update_amount = NULL;
 
-//Create safe values for input into the database
-$clean_expense_type = mysqli_real_escape_string($mysqli, $_POST['expense-type']);
-$clean_expense_amount = mysqli_real_escape_string($mysqli, $_POST['expense-amount']);
-
-//Assign current record id to variable an assign current date/time
-$current_record = $_POST['update-button'];
-$date = date('Y-m-d H:i:s'); 
-
-//Convert cleaned expense amount to int for calculations
-$int_expense_amount = (int)$clean_expense_amount;
-
-//Create and issue query to find category value to update
-$retrieve_current_amount_sql = "SELECT $clean_expense_type FROM categories WHERE id= $current_record";
-$retrieve_current_amount_res = mysqli_query($mysqli,        $retrieve_current_amount_sql) or die(mysqli_error($mysqli));
-$current_row = mysqli_fetch_array($retrieve_current_amount_res);
-$current_amount = $current_row[$clean_expense_type];
-
-//Subtract new expense amount from current expense
-$current_amount -= $int_expense_amount;
-
-//Update new category value into database
-$update_category_amount_sql = "UPDATE categories SET $clean_expense_type= $current_amount, time_stamp='$date' WHERE id=$current_record";
-mysqli_query($mysqli, $update_category_amount_sql) or die(mysqli_error($mysqli));
-
-//Close connection to MySQL
-mysqli_close($mysqli);
-
-header("Location: displayFunds.php");
-exit;
+         header("Location: displayFunds.php");
+         exit;
+      }
+   }
 ?>

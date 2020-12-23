@@ -1,12 +1,11 @@
-
 <?php
-   function connectDB() {
-      global $mysqli;
-         //connect to server and select database;
-      $mysqli = new mysqli("localhost", "danielma_daniel", "TRoop12719871990!!", "danielma_personal_expenses");
-      if ($mysqli->connect_errno) {
-         echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-         exit();
-      }
-   }
+    define('USER', 'danielma_daniel');
+    define('PASSWORD', 'TRoop12719871990!!');
+    define('HOST', 'localhost');
+    define('DATABASE', 'danielma_personal_expenses');
+    try {
+        $connection = new PDO("mysql:host=".HOST.";dbname=".DATABASE, USER, PASSWORD);
+    } catch (PDOException $e) {
+        exit("Error: " . $e->getMessage());
+    }
 ?>
