@@ -158,7 +158,7 @@
             <summary>Reset Fund Levels</summary>
             <form action='resetFunds.php' method='post'  class='reset-spend-form'>
                <div class='form-row'>
-                  <button type='submit' name='reset-button'>Reset Funds</button>
+                  <button class='reset-button' type='submit' name='reset-button'>Reset Funds</button>
                </div>
             </form>
          </details>

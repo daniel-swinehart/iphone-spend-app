@@ -5,6 +5,7 @@
 }
 
 body {
+   width: 100%;
    font-family: 'Roboto', sans-serif;
    font-size: 14px;
    line-height: 1.8em;
@@ -40,6 +41,26 @@ body {
    margin: 5px;
 }
 
+.signup-form {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   justify-content: center;
+   width: 100%;
+   border: solid 1px #f3962c;
+   margin: 5px;
+}
+
+.reset-spend-form {
+   display: flex;
+   flex-wrap: wrap;
+   flex-direction: column;
+   justify-content: center;
+   width: 100%;
+   border: solid 1px #f3962c;
+   margin: 5px;
+}
+
 .form-row {
    display: flex;
    width: 100%;
@@ -54,7 +75,25 @@ body {
    border-radius: 3px;
    width: 100%;
    padding: 5px;
-   font-size: 12px;
+   font-size: 14px;
+}
+
+.form-row input[type='text'] {
+   background-color: #FFFFFF;
+   border: 1px solid #37393b;
+   border-radius: 3px;
+   width: 100%;
+   padding: 5px;
+   font-size: 14px;
+}
+
+.form-row input[type='password'] {
+   background-color: #FFFFFF;
+   border: 1px solid #37393b;
+   border-radius: 3px;
+   width: 100%;
+   padding: 5px;
+   font-size: 14px;
 }
 
 .form-row label {
@@ -71,7 +110,7 @@ body {
    border: 1px solid #37393b;
    border-radius: 3px;
    padding: 5px;
-   font-size: 12px;
+   font-size: 14px;
 }
 
 .fund-levels {
@@ -108,6 +147,19 @@ body {
 
 .table-column-amount-last {
    border-bottom: none;
+}
+
+.report-reset {
+   width: 100;
+   margin-bottom: 25px;
+}
+
+button {
+   width: 25%;
+}
+
+.reset-button {
+   width: auto;
 }
 
 .footer {

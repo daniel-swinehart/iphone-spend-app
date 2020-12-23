@@ -33,22 +33,30 @@
       <title>User Login</title>
       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,900;1,900&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-      <link rel='stylesheet' href='temp_style.css'/>
+      <link rel='stylesheet' href='styles.css'/>
       <link rel='apple-touch-icon' type='image/png' href='http://www.danielmaroc.com/images/apple-touch-icon.png'/>
    </head>
    <body>
-      <form method='post' action='' name='signup-form'>
-         <div class='form-row'>
-            <label for='input-username'>Username
-               <input id='input-username' name='user-name' type='text' required/>
-            </label>
-         </div>
-         <div class='form-row'>
-            <label for='input-password'>Password
-               <input id='input-password' name='user-password' type='password' required/>
-            </label>
-         </div>
-         <button type='submit' name='login' value='login'>Login</button>
-      </form>
+      <div class='page'>
+         <header class='header'>
+         <div class='page-logo'><img src='#'/></div>
+         </header>
+
+         <form method='post' action='' name='signup-form' class='signup-form'>
+            <div class='form-row'>
+               <label for='input-username'>Username
+                  <input id='input-username' name='user-name' type='text' required/>
+               </label>
+            </div>
+            <div class='form-row'>
+               <label for='input-password'>Password
+                  <input id='input-password' name='user-password' type='password' required/>
+               </label>
+            </div>
+            <div class='form-row'>
+               <button type='submit' name='login' value='login'>Login</button>
+            </div>
+         </form>
+      </div>
    </body>
 </html>
