@@ -37,7 +37,6 @@ body {
    flex-direction: column;
    justify-content: center;
    width: 100%;
-   border: solid 1px #f3962c;
    margin: 5px;
 }
 
@@ -47,7 +46,6 @@ body {
    flex-direction: column;
    justify-content: center;
    width: 100%;
-   border: solid 1px #f3962c;
    margin: 5px;
 }
 
@@ -57,7 +55,6 @@ body {
    flex-direction: column;
    justify-content: center;
    width: 100%;
-   border: solid 1px #f3962c;
    margin: 5px;
 }
 
@@ -65,7 +62,6 @@ body {
    display: flex;
    width: 100%;
    justify-content: center;
-   border: solid 1px #df2222;
    margin-top: 5px;
 }
 
@@ -101,7 +97,6 @@ body {
    width: 75%;
    text-align: left;
    margin-top: 5px;
-   border: solid 1px #6422df;
 }
 
 .form-row select {
