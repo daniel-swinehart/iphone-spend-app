@@ -7,11 +7,11 @@
       include 'includeDB.php';
 
       //Collect expense categories and current remaining fund levels
-      $query = $connection->prepare("SELECT * FROM categories ORDER BY id DESC LIMIT 1");
-      $query->execute(); 
+      $query_categories = $connection->prepare("SELECT * FROM categories ORDER BY id DESC LIMIT 1");
+      $query_categories->execute(); 
 
       //Arrange fund level data into table for display
-      $category_info = $query->fetch(PDO::FETCH_ASSOC);
+      $category_info = $query_categories->fetch(PDO::FETCH_ASSOC);
       $cat_id = $category_info['id'];
       $cat_grocery = $category_info['grocery'];
       $cat_education = $category_info['education'];
@@ -27,68 +27,69 @@
       $cat_hospitality = $category_info['hospitality'];
       $cat_charitable = $category_info['charitable'];
       $cat_tithe = $category_info['tithe'];
+      $cat_time = $category_info['time_stamp'];
 
       //Add to table display
-      $display_block = <<<END_OF_TEXT
+      $display_block_current_funds = <<<END_OF_TEXT
       <table class='fund-levels'>
          <thead>
             <th colspan='2'>Current Fund Levels (MAD)</th>
          </thead>
          <tbody>
             <tr class='table-rows'>
-               <td class='table-column-category'>Groceries</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=grocery&time=$cat_time'>Groceries</a></td>
                <td class='table-column-amount'>$cat_grocery</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Charitable</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=charitable&time=$cat_time'>Charitable</a></td>
                <td class='table-column-amount'>$cat_charitable</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Transportation</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=transportation&time=$cat_time'>Transportation</a></td>
                <td class='table-column-amount'>$cat_transportation</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Education</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=education&time=$cat_time'>Education</a></td>
                <td class='table-column-amount'>$cat_education</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Hospitality</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=hospitality&time=$cat_time'>Hospitality</a></td>
                <td class='table-column-amount'>$cat_hospitality</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Clothing</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=clothing&time=$cat_time'>Clothing</a></td>
                <td class='table-column-amount'>$cat_clothing</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Medical</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=medical&time=$cat_time'>Medical</a></td>
                <td class='table-column-amount'>$cat_medical</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Recreation</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=recreation&time=$cat_time'>Recreation</a></td>
                <td class='table-column-amount'>$cat_recreation</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>House Help</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=house_help&time=$cat_time'>House Help</a></td>
                <td class='table-column-amount'>$cat_house_help</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Savings</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=savings&time=$cat_time'>Savings</a></td>
                <td class='table-column-amount'>$cat_savings</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Vacation</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=vacation&time=$cat_time'>Vacation</a></td>
                <td class='table-column-amount'>$cat_vacation</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Utilities</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=utilities&time=$cat_time'>Utilities</a></td>
                <td class='table-column-amount'>$cat_utilities</td>
             </tr>
             <tr class='table-rows'>
-               <td class='table-column-category'>Apartment Rent</td>
+               <td class='table-column-category'><a href='displayExpenses.php?category=apartment_rent&time=$cat_time'>Apartment Rent</a></td>
                <td class='table-column-amount'>$cat_apartment</td>
             </tr>
             <tr class='table-rows-last'>
-               <td class='table-column-category-last'>Tithe</td>
+               <td class='table-column-category-last'><a href='displayExpenses.php?category=tithe&time=$cat_time'>Tithe</a></td>
                <td class='table-column-amount-last'>$cat_tithe</td>
             </tr>
          </tbody>
@@ -96,8 +97,98 @@
 
       END_OF_TEXT;
 
-      //Close connection to MySQL
-      $connection = NULL;
+      //Collect rollover fund levels
+      $query_rollover = $connection->prepare("SELECT * FROM rollover ORDER BY id DESC LIMIT 1");
+      $query_rollover->execute(); 
+
+      //Arrange fund level data into table for display
+      $rollover_info = $query_rollover->fetch(PDO::FETCH_ASSOC);
+      $roll_grocery = $rollover_info['grocery'];
+      $roll_education = $rollover_info['education'];
+      $roll_transportation = $rollover_info['transportation'];
+      $roll_utilities = $rollover_info['utilities'];
+      $roll_apartment = $rollover_info['apartment_rent'];
+      $roll_clothing = $rollover_info['clothing'];
+      $roll_recreation = $rollover_info['recreation'];
+      $roll_vacation = $rollover_info['vacation'];
+      $roll_savings = $rollover_info['savings'];
+      $roll_medical = $rollover_info['medical'];
+      $roll_house_help = $rollover_info['house_help'];
+      $roll_hospitality = $rollover_info['hospitality'];
+      $roll_charitable = $rollover_info['charitable'];
+      $roll_tithe = $rollover_info['tithe'];
+      
+      //Add to display ROLLOVER fund table
+      $display_block_rollover_funds = <<<END_OF_TEXT
+      <table class='fund-levels'>
+         <thead>
+            <th colspan='2'>Rollover Fund Levels (MAD)</th>
+         </thead>
+         <tbody>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Groceries</td>
+               <td class='table-column-amount'>$roll_grocery</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Charitable</td>
+               <td class='table-column-amount'>$roll_charitable</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Transportation</td>
+               <td class='table-column-amount'>$roll_transportation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Education</td>
+               <td class='table-column-amount'>$roll_education</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Hospitality</td>
+               <td class='table-column-amount'>$roll_hospitality</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Clothing</td>
+               <td class='table-column-amount'>$roll_clothing</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Medical</td>
+               <td class='table-column-amount'>$roll_medical</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Recreation</td>
+               <td class='table-column-amount'>$roll_recreation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>House Help</td>
+               <td class='table-column-amount'>$roll_house_help</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Savings</td>
+               <td class='table-column-amount'>$roll_savings</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Vacation</td>
+               <td class='table-column-amount'>$roll_vacation</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Utilities</td>
+               <td class='table-column-amount'>$roll_utilities</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-category'>Apartment Rent</td>
+               <td class='table-column-amount'>$roll_apartment</td>
+            </tr>
+            <tr class='table-rows-last'>
+               <td class='table-column-category-last'>Tithe</td>
+               <td class='table-column-amount-last'>$roll_tithe</td>
+            </tr>
+         </tbody>
+      </table>
+
+      END_OF_TEXT; 
+      
+      //Close database connections
+      $query_categories = NULL;
+      $query_rollover = NULL;
     } 
 ?>
 
@@ -117,7 +208,6 @@
    <body>
       <div class='page'>
          <header class='header'>
-            <div class='page-logo'><img src='#'/></div>
          </header>
 
          <h1>Monthly Fund Tracker</h1>
@@ -130,18 +220,23 @@
                      <option value='charitable'>Charitable</option>
                      <option value='transportation'>Transportation</option>
                      <option value='education'>Education</option>
-                     <option value='clothing'>Clothing</option>
                      <option value='hospitality'>Hospitality</option>
+                     <option value='clothing'>Clothing</option>
                      <option value='medical'>Medical</option>
+                     <option value='recreation'>Recreation</option>
                      <option value='house_help'>House Help</option>
+                     <option value='savings'>Savings</option>
+                     <option value='vacation'>Vacation</option>
                      <option value='utilities'>Utilities</option>
                      <option value='apartment_rent'>Apartment Rent</option>
-                     <option value='recreation'>Recreation</option>
-                     <option value='vacation'>Vacation</option>
-                     <option value='savings'>Savings</option>
                      <option value='tithe'>Tithe</option>  
                   </select>
                </label>  
+            </div>
+            <div class='form-row'>
+                  <label for='expense-description'>Expense Description:
+                     <input id='expense-description' name='expense-description' type='text'/>
+                  </label>
             </div>
             <div class='form-row'>
                <label for='expense-amount'>Amount(MAD):
@@ -153,12 +248,16 @@
             </div>   
          </form>
 
-         <?php echo $display_block; ?>
+         <?php echo $display_block_current_funds; ?>
+         <details class='report-rollover'>
+            <summary>Current Fund Rollover Amounts</summary>
+            <?php echo $display_block_rollover_funds; ?>
+         </details>
          <details class='report-reset'>
             <summary>Reset Fund Levels</summary>
             <form action='resetFunds.php' method='post'  class='reset-spend-form'>
                <div class='form-row'>
-                  <button class='reset-button' type='submit' name='reset-button'>Reset Funds</button>
+                  <button class='reset-button' type='submit' id='reset-button' name='reset-button' value='<?php echo $cat_id; ?>'>Reset Funds</button>
                </div>
             </form>
          </details>
