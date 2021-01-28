@@ -29,26 +29,33 @@
    <body>
         <div class='page'>
             <header class='header'>
-                <div class='page-logo'><img src='#'/></div>
             </header>
-            
-            <table class='expense-list'>
-                <thead>
-                    <th colspan='4'>Category Expense Details (MAD)</th>
-                </thead>
-                <tbody>
-                    <?php
-                        while($row = $query_expenses->fetch(PDO::FETCH_ASSOC)) {
+            <a href='displayFunds.php'>Return</a>
+            <div class='form-row'>
+                <table class='expense-list'>
+                    <thead>
+                        <th colspan='4'><?php echo strtoupper($_GET['category']); ?> Expense Details (MAD)</th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        if ($query_expenses->rowCount() == 0) {
                             echo "<tr class='table-rows'>";
-                            echo "<td class='table-column-expense'>". $row['category'] ."</td>";
-                            echo "<td class='table-column-description'>". $row['expense_description'] ."</td>";
-                            echo "<td class='table-column-time'>". $row['time_stamp'] ."</td>";
-                            echo "<td class='table-column-cost'>" . $row['amount'] ."</td>";  
+                                echo "<td>No Current Expenses</td>";
                             echo "</tr>";
+                        } else {
+                            while($row = $query_expenses->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<tr class='table-rows'>";
+                                    echo "<td class='table-column-description'>". $row['expense_description'] ."</td>";
+                                    echo "<td class='table-column-time'>". $row['time_stamp'] ."</td>";
+                                    echo "<td class='table-column-cost'>" . $row['amount'] ."</td>";  
+                                echo "</tr>";
+                            }
                         }    
-                    ?>
-                </tbody>
-            </table>
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            <a href='displayFunds.php'>Return</a>
         </div>
     </body>
 </html>

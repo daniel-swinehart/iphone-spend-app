@@ -235,12 +235,12 @@
             </div>
             <div class='form-row'>
                   <label for='expense-description'>Expense Description:
-                     <input id='expense-description' name='expense-description' type='text'/>
+                     <input id='expense-description' name='expense-description' type='text' required/>
                   </label>
             </div>
             <div class='form-row'>
                <label for='expense-amount'>Amount(MAD):
-                  <input id='expense-amount' name='expense-amount' type='number'/>
+                  <input id='expense-amount' name='expense-amount' type='number' required/>
                </label>
             </div>
             <div class='form-row'>
@@ -251,7 +251,9 @@
          <?php echo $display_block_current_funds; ?>
          <details class='report-rollover'>
             <summary>Current Fund Rollover Amounts</summary>
-            <?php echo $display_block_rollover_funds; ?>
+               <div class='form-row'>
+                  <?php echo $display_block_rollover_funds; ?>
+               </div>
          </details>
          <details class='report-reset'>
             <summary>Reset Fund Levels</summary>
