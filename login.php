@@ -39,7 +39,6 @@
    <body>
       <div class='page'>
          <header class='header'>
-         <div class='page-logo'><img src='#'/></div>
          </header>
 
          <form method='post' action='' name='signup-form' class='signup-form'>
