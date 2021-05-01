@@ -58,7 +58,8 @@
       $create_new_rollover_record->execute();
 
       /*SQL create new record in database to reset funds levels to hard-coded levels and reset timestamp for month*/
-      $create_new_categories_record = $connection->prepare("INSERT INTO categories (grocery, education, transportation, utilities, apartment_rent, clothing, recreation, vacation, savings, medical, house_help, hospitality, charitable, tithe, time_stamp) VALUES (3588, 4058, 1298, 1256, 4750, 897, 1794, 1794, 2243, 448, 1520, 717, 448, 2691, :current_date)");
+      $create_new_categories_record = $connection->prepare("INSERT INTO categories (grocery, education, transportation, utilities, apartment_rent, clothing, recreation, vacation, savings, medical, house_help, hospitality, charitable, tithe, time_stamp) VALUES (4186, 5828, 1298, 700, 4750, 897, 1794, 1794, 2243, 448, 1520, 717, 448, 2691, :current_date)");
+      //Total as of 1 MAY 2021 is 29314MAD = 3269USD
       $create_new_categories_record->bindParam(":current_date", $date, PDO::PARAM_STR);
       $create_new_categories_record->execute();
 
