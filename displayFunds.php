@@ -11,7 +11,7 @@
       $query_categories->execute(); 
 
       //Arrange fund level data into table for display
-      $category_info = $query_categories->fetch(PDO::FETCH_ASSOC);
+      $category_info = $query_categories->fetch(PDO::FETCH_BOTH);
       $cat_id = $category_info['id'];
       $cat_grocery = $category_info['grocery'];
       $cat_education = $category_info['education'];
@@ -27,7 +27,11 @@
       $cat_hospitality = $category_info['hospitality'];
       $cat_charitable = $category_info['charitable'];
       $cat_tithe = $category_info['tithe'];
+      $cat_start_total = $category_info['start_total']; 
       $cat_time = $category_info['time_stamp'];
+
+      //Calculate current total for display
+      $cat_total = $cat_grocery + $cat_education + $cat_transportation + $cat_utilities + $cat_apartment + $cat_clothing + $cat_recreation + $cat_vacation + $cat_savings + $cat_medical + $cat_house_help + $cat_hospitality + $cat_charitable + $cat_tithe;
 
       //Add to table display
       $display_block_current_funds = <<<END_OF_TEXT
@@ -97,6 +101,23 @@
 
       END_OF_TEXT;
 
+      $display_block_current_funds_total = <<<END_OF_TEXT
+      <table class='fund-levels'>
+         <thead>
+            <th colspan='2'>Fund Totals (MAD)</th>
+         </thead>
+         <tbody>
+            <tr class='table-rows'>
+               <td class='table-column-amount-last'>Beginning Total: $cat_start_total</td>
+            </tr>
+            <tr class='table-rows'>
+               <td class='table-column-amount-last'>Remaining Total: $cat_total</td>
+            </tr>
+         </tbody>
+      </table>
+
+      END_OF_TEXT;
+
       //Collect rollover fund levels
       $query_rollover = $connection->prepare("SELECT * FROM rollover ORDER BY id DESC LIMIT 1");
       $query_rollover->execute(); 
@@ -118,6 +139,10 @@
       $roll_charitable = $rollover_info['charitable'];
       $roll_tithe = $rollover_info['tithe'];
       
+      //Calculate total rollover amount
+      $roll_total = $roll_grocery + $roll_education + $roll_transportation + $roll_utilities + $roll_apartment + $roll_clothing + $roll_recreation + $roll_vacation + $roll_savings + $roll_medical + $roll_house_help + $roll_hospitality + $roll_charitable + $roll_tithe; 
+      
+
       //Add to display ROLLOVER fund table
       $display_block_rollover_funds = <<<END_OF_TEXT
       <table class='fund-levels'>
@@ -184,6 +209,20 @@
          </tbody>
       </table>
 
+      END_OF_TEXT;
+      
+      $display_block_rollover_funds_total = <<<END_OF_TEXT
+      <table class='fund-levels'>
+         <thead>
+            <th colspan='2'>Rollover Total (MAD)</th>
+         </thead>
+         <tbody>
+            <tr class='table-rows'>
+               <td class='table-column-amount-last'>$roll_total</td>
+            </tr>
+         </tbody>
+      </table>
+      
       END_OF_TEXT; 
       
       //Close database connections
@@ -206,10 +245,14 @@
    </head>
 
    <body>
+      <header class='header'>
+         <div class="navbar">
+            <a href="#home">Home</a>
+            <a href="#reports">Reports</a>
+            <a href="#reset">Reset</a>
+         </div>
+      </header>
       <div class='page'>
-         <header class='header'>
-         </header>
-
          <h1>Monthly Fund Tracker</h1>
 
          <form action='updateFunds.php' method='post' class='spend-form'>
@@ -249,10 +292,14 @@
          </form>
 
          <?php echo $display_block_current_funds; ?>
+         <?php echo $display_block_current_funds_total; ?>
          <details class='report-rollover'>
             <summary>Current Fund Rollover Amounts</summary>
                <div class='form-row'>
                   <?php echo $display_block_rollover_funds; ?>
+               </div>
+               <div class='form-row'>
+                  <?php echo $display_block_rollover_funds_total; ?>
                </div>
          </details>
          <details class='report-reset'>
@@ -261,8 +308,8 @@
                <div class='form-row'>
                   <button class='reset-button' type='submit' id='reset-button' name='reset-button' value='<?php echo $cat_id; ?>'>Reset Funds</button>
                </div>
-            </form>
-         </details>
+             </form>
+         </details>      
       </div>
    </body>
 </html>

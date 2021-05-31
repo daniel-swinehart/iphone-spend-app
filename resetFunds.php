@@ -58,9 +58,46 @@
       $create_new_rollover_record->execute();
 
       /*SQL create new record in database to reset funds levels to hard-coded levels and reset timestamp for month*/
-      $create_new_categories_record = $connection->prepare("INSERT INTO categories (grocery, education, transportation, utilities, apartment_rent, clothing, recreation, vacation, savings, medical, house_help, hospitality, charitable, tithe, time_stamp) VALUES (4186, 5828, 1298, 700, 4750, 897, 1794, 1794, 2243, 448, 1520, 717, 448, 2691, :current_date)");
-      //Total as of 1 MAY 2021 is 29314MAD = 3269USD
-      $create_new_categories_record->bindParam(":current_date", $date, PDO::PARAM_STR);
+      $create_new_categories_record = $connection->prepare("INSERT INTO categories (grocery, education, transportation, utilities, apartment_rent, clothing, recreation, vacation, savings, medical, house_help, hospitality, charitable, tithe, start_total, time_stamp) VALUES (:current_grocery, :current_education, :current_transportation, :current_utilities, :current_apartment_rent, :current_clothing, :current_recreation, :current_vacation, :current_savings, :current_medical, :current_house_help, :current_hospitality, :current_charitable, :current_tithe, :current_start_total, :current_time_stamp)");
+
+      //Constants to hard code fund levels(MAD)
+      $grocery = 5309;
+      $education = 6636;
+      $transportation = 1991;
+      $utilities = 619;
+      $apartment_rent = 4750;
+      $clothing = 885;
+      $recreation = 2035;
+      $vacation = 2035;
+      $savings = 2655;
+      $medical = 442;
+      $house_help = 1549;
+      $hospitality = 708;
+      $charitable = 442;
+      $tithe = 2213;
+      $start_total = 32269;
+      /*
+      Total as of 01JUN2021 is 32269MAD = 3647USD (*includes 80USD hospitality not shown in total on budget line*)
+      */
+      
+      //Bind parameters
+      $create_new_categories_record->bindParam(":current_grocery", $grocery, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_education", $education, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_transportation", $transportation, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_utilities", $utilities, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_apartment_rent", $apartment_rent, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_clothing", $clothing, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_recreation", $recreation, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_vacation", $vacation, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_savings", $savings, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_medical", $medical, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_house_help", $house_help, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_hospitality", $hospitality, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_charitable", $charitable, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_tithe", $tithe, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_start_total", $start_total, PDO::PARAM_STR);
+      $create_new_categories_record->bindParam(":current_time_stamp", $date, PDO::PARAM_STR);
+      //Execute sql
       $create_new_categories_record->execute();
 
       //Close connection to database
